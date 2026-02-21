@@ -29,3 +29,24 @@ Tree* newTree()
     tree->root = NULL;
     return tree;
 }
+
+int label(bstNode* node)
+{
+    if (node == NULL) {
+        return 0;
+    }
+
+    return node->data;
+}
+
+void freeNode(bstNode* node)
+{
+    if (node == NULL) {
+        return 0;
+    }
+
+    free(node->leftChild);
+    free(node->rightChild);
+    free(node);
+    return 0;
+}
