@@ -1,8 +1,8 @@
 #include "bst.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 typedef struct bstNode {
     int data;
@@ -56,41 +56,35 @@ bool bstContain(Tree* tree, int value)
 {
     bstNode* current = tree->root;
 
-    while (current != NULL)
-    {
-        if (value == current->data){
+    while (current != NULL) {
+        if (value == current->data) {
             return true;
-        }
-        else if (value < current->data){
+        } else if (value < current->data) {
             current = current->leftChild;
-        }
-        else if (value > current->data){
+        } else if (value > current->data) {
             current = current->rightChild;
         }
     }
 
     return false;
-    
 }
 
 void bstInsert(Tree* tree, int value)
 {
-   
 
-    if (tree->root == NULL){
+    if (tree->root == NULL) {
         tree->root = newNode(value);
     }
 
-     bstNode* current = tree->root;
+    bstNode* current = tree->root;
 
-    while (true)
-    {
-        if (value == current->data){
+    while (true) {
+        if (value == current->data) {
             return;
         }
 
-        if (value < current->data){
-            if (current->leftChild = NULL){
+        if (value < current->data) {
+            if (current->leftChild = NULL) {
                 current->leftChild = newNode(value);
                 return;
             }
@@ -99,7 +93,7 @@ void bstInsert(Tree* tree, int value)
         }
 
         else {
-            if (current->rightChild == NULL){
+            if (current->rightChild == NULL) {
                 current->rightChild = newNode(value);
                 return;
             }
@@ -111,5 +105,4 @@ void bstInsert(Tree* tree, int value)
 
 void bstFree(Tree* tree)
 {
-
 }
