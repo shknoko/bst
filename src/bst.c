@@ -133,3 +133,21 @@ static void bstInorderNode(bstNode* node)
     printf("%d\n", label(node));
     bstInorderNode(node->rightChild);
 }
+
+void bstPreorder(Tree* tree)
+{
+    assert(tree != NULL);
+    bstPreorderNode(tree->root);
+    return;
+}
+
+static void bstPreorderNode(bstNode* node)
+{
+    if (node == NULL) {
+        return;
+    }
+
+    printf("%d\n", label(node));
+    bstPreorderNode(node->leftChild);
+    bstPreorderNode(node->rightChild);
+}
