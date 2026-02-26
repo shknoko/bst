@@ -17,6 +17,10 @@ typedef struct Tree {
 bstNode* newNode(int data)
 {
     bstNode* node = (bstNode*)malloc(sizeof(bstNode));
+    if (node == NULL) {
+        return NULL;
+    }
+
     node->data = data;
     node->leftChild = NULL;
     node->rightChild = NULL;
