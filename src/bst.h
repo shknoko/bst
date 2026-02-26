@@ -2,16 +2,16 @@
 
 #include <stdbool.h>
 
-typedef struct bstNode bstNode;
+typedef struct BstNode BstNode;
 typedef struct Tree Tree;
 
-bstNode* newNode(int);
+BstNode* newNode(int);
 Tree* newTree();
-void freeNode(bstNode*);
+void freeNode(BstNode*);
 void bstInsert(Tree*, int);
 bool bstContains(Tree*, int);
 void bstFree(Tree*);
-int label(bstNode*);
+int label(BstNode*);
 
 void bstInorder(Tree*);
 void bstPreorder(Tree*);

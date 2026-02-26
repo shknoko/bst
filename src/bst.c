@@ -5,19 +5,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct bstNode {
+typedef struct BstNode {
     int data;
-    struct bstNode* leftChild;
-    struct bstNode* rightChild;
-} bstNode;
+    struct BstNode* leftChild;
+    struct BstNode* rightChild;
+} BstNode;
 
 typedef struct Tree {
-    bstNode* root;
+    BstNode* root;
 } Tree;
 
-bstNode* newNode(int data)
+BstNode* newNode(int data)
 {
-    bstNode* node = (bstNode*)malloc(sizeof(bstNode));
+    BstNode* node = (BstNode*)malloc(sizeof(BstNode));
     if (node == NULL) {
         return NULL;
     }
@@ -40,7 +40,7 @@ Tree* newTree()
     return tree;
 }
 
-int label(bstNode* node)
+int label(BstNode* node)
 {
     if (node == NULL) {
         return INT_MIN;
@@ -49,7 +49,7 @@ int label(bstNode* node)
     return node->data;
 }
 
-void freeNode(bstNode* node)
+void freeNode(BstNode* node)
 {
     if (node == NULL) {
         return;
@@ -58,12 +58,11 @@ void freeNode(bstNode* node)
     freeNode(node->leftChild);
     freeNode(node->rightChild);
     free(node);
-    return;
 }
 
 bool bstContain(Tree* tree, int value)
 {
-    bstNode* current = tree->root;
+    BstNode* current = tree->root;
 
     while (current != NULL) {
         if (value == current->data) {
@@ -85,7 +84,7 @@ void bstInsert(Tree* tree, int value)
         tree->root = newNode(value);
     }
 
-    bstNode* current = tree->root;
+    BstNode* current = tree->root;
 
     while (true) {
         if (value == current->data) {
@@ -116,7 +115,7 @@ void bstFree(Tree* tree)
 {
 }
 
-static void bstInorderNode(bstNode* node)
+static void bstInorderNode(BstNode* node)
 {
     if (node == NULL) {
         return;
@@ -134,10 +133,9 @@ void bstInorder(Tree* tree)
     }
 
     bstInorderNode(tree->root);
-    return;
 }
 
-static void bstPreorderNode(bstNode* node)
+static void bstPreorderNode(BstNode* node)
 {
     if (node == NULL) {
         return;
@@ -155,10 +153,9 @@ void bstPreorder(Tree* tree)
     }
 
     bstPreorderNode(tree->root);
-    return;
 }
 
-static void bstPostorderNode(bstNode* node)
+static void bstPostorderNode(BstNode* node)
 {
     if (node == NULL) {
         return;
@@ -176,5 +173,4 @@ void bstPostorder(Tree* tree)
     }
 
     bstPostorderNode(tree->root);
-    return;
 }
