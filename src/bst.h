@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 typedef struct bstNode bstNode;
 typedef struct Tree Tree;
 
@@ -9,7 +11,7 @@ void freeNode(bstNode*);
 void bstInsert(Tree*, int);
 bool bstContains(Tree*, int);
 void bstFree(Tree*);
-int label(bstNode*, Tree*);
+int label(bstNode*);
 
 void bstInorder(Tree*);
 void bstPreorder(Tree*);
