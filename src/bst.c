@@ -31,6 +31,10 @@ bstNode* newNode(int data)
 Tree* newTree()
 {
     Tree* tree = (Tree*)malloc(sizeof(Tree));
+    if (tree == NULL) {
+        return NULL;
+    }
+
     tree->root = NULL;
     return tree;
 }
@@ -110,3 +114,4 @@ void bstInsert(Tree* tree, int value)
 void bstFree(Tree* tree)
 {
 }
+
