@@ -115,3 +115,21 @@ void bstInsert(Tree* tree, int value)
 void bstFree(Tree* tree)
 {
 }
+
+void bstInorder(Tree* tree)
+{
+    assert(tree != NULL);
+    bstInorderNode(tree->root);
+    return;
+}
+
+static void bstInorderNode(bstNode* node)
+{
+    if (node == NULL) {
+        return;
+    }
+
+    bstInorderNode(node->leftChild);
+    printf("%d\n", label(node));
+    bstInorderNode(node->rightChild);
+}
