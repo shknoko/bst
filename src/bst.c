@@ -151,3 +151,21 @@ static void bstPreorderNode(bstNode* node)
     bstPreorderNode(node->leftChild);
     bstPreorderNode(node->rightChild);
 }
+
+void bstPostorder(Tree* tree)
+{
+    assert(tree != NULL);
+    bstPostorderNode(tree->root);
+    return;
+}
+
+static void bstPostorderNode(bstNode* node)
+{
+    if (node == NULL) {
+        return;
+    }
+
+    bstPostorderNode(node->leftChild);
+    bstPostorderNode(node->rightChild);
+    printf("%d\n", label(node));
+}
