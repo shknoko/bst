@@ -1,9 +1,9 @@
 #include "bst.h"
 
+#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 
 typedef struct bstNode {
     int data;
@@ -116,13 +116,6 @@ void bstFree(Tree* tree)
 {
 }
 
-void bstInorder(Tree* tree)
-{
-    assert(tree != NULL);
-    bstInorderNode(tree->root);
-    return;
-}
-
 static void bstInorderNode(bstNode* node)
 {
     if (node == NULL) {
@@ -134,10 +127,13 @@ static void bstInorderNode(bstNode* node)
     bstInorderNode(node->rightChild);
 }
 
-void bstPreorder(Tree* tree)
+void bstInorder(Tree* tree)
 {
-    assert(tree != NULL);
-    bstPreorderNode(tree->root);
+    if (tree == NULL) {
+        return;
+    }
+
+    bstInorderNode(tree->root);
     return;
 }
 
@@ -152,10 +148,13 @@ static void bstPreorderNode(bstNode* node)
     bstPreorderNode(node->rightChild);
 }
 
-void bstPostorder(Tree* tree)
+void bstPreorder(Tree* tree)
 {
-    assert(tree != NULL);
-    bstPostorderNode(tree->root);
+    if (tree == NULL) {
+        return;
+    }
+
+    bstPreorderNode(tree->root);
     return;
 }
 
@@ -168,4 +167,14 @@ static void bstPostorderNode(bstNode* node)
     bstPostorderNode(node->leftChild);
     bstPostorderNode(node->rightChild);
     printf("%d\n", label(node));
+}
+
+void bstPostorder(Tree* tree)
+{
+    if (tree == NULL) {
+        return;
+    }
+
+    bstPostorderNode(tree->root);
+    return;
 }
