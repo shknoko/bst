@@ -1,10 +1,12 @@
+#include "bst.h"
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
 int main(void)
 {
-    BST tree = { .root = NULL};
+    Tree *tree = newTree();
 
     bstInsert(&tree, 30);
     bstInsert(&tree, 50);
