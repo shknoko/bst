@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 typedef struct bstNode {
     int data;
@@ -42,7 +43,7 @@ Tree* newTree()
 int label(bstNode* node)
 {
     if (node == NULL) {
-        return 0;
+        return INT_MIN;
     }
 
     return node->data;
@@ -51,13 +52,13 @@ int label(bstNode* node)
 void freeNode(bstNode* node)
 {
     if (node == NULL) {
-        return 0;
+        return;
     }
 
-    free(node->leftChild);
-    free(node->rightChild);
+    freeNode(node->leftChild);
+    freeNode(node->rightChild);
     free(node);
-    return 0;
+    return;
 }
 
 bool bstContain(Tree* tree, int value)
@@ -114,4 +115,3 @@ void bstInsert(Tree* tree, int value)
 void bstFree(Tree* tree)
 {
 }
-
