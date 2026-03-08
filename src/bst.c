@@ -60,7 +60,7 @@ void freeNode(BstNode* node)
     free(node);
 }
 
-bool bstContain(Tree* tree, int value)
+bool bstContains(Tree* tree, int value)
 {
     BstNode* current = tree->root;
 
@@ -82,6 +82,7 @@ void bstInsert(Tree* tree, int value)
 
     if (tree->root == NULL) {
         tree->root = newNode(value);
+        return;
     }
 
     BstNode* current = tree->root;
@@ -92,7 +93,7 @@ void bstInsert(Tree* tree, int value)
         }
 
         if (value < current->data) {
-            if (current->leftChild = NULL) {
+            if (current->leftChild == NULL) {
                 current->leftChild = newNode(value);
                 return;
             }
@@ -113,6 +114,13 @@ void bstInsert(Tree* tree, int value)
 
 void bstFree(Tree* tree)
 {
+    if (tree == NULL) {
+        return;
+    }
+
+    freeNode(tree->root);
+
+    free(tree);
 }
 
 static void bstInorderNode(BstNode* node)
@@ -173,4 +181,128 @@ void bstPostorder(Tree* tree)
     }
 
     bstPostorderNode(tree->root);
+}
+
+static int maxInt(int a, int b)
+{
+    return (a > b) ? a : b;
+}
+
+static int bstHeightNode(BstNode* node)
+{
+    if (node == NULL) {
+        return 0;
+    }
+
+    return 1 + maxInt(bstHeightNode(node->leftChild), bstHeightNode(node->rightChild));
+}
+
+int bstHeight(Tree* tree)
+{
+    if (tree == NULL) {
+        return 0;
+    }
+
+    return bstHeightNode(tree->root);
+}
+
+static int bstSizeNode(BstNode* node)
+{
+    if (node == NULL) {
+        return 0;
+    }
+
+    return 1 + bstSizeNode(node->leftChild) + bstSizeNode(node->rightChild);
+}
+
+int bstSize(Tree* tree)
+{
+    if (tree == NULL) {
+        return 0;
+    }
+
+    return bstSizeNode(tree->root);
+}
+
+int bstMin(Tree* tree)
+{
+    if (tree == NULL || tree->root == NULL) {
+        return INT_MIN; // при пустом дереве возвращает код ошибки INT_MIN
+    }
+
+    BstNode* current = tree->root;
+
+    while (current->leftChild != NULL) {
+        current = current->leftChild;
+    }
+
+    return current->data;
+}
+
+int bstMax(Tree* tree)
+{
+    if (tree == NULL || tree->root == NULL) {
+        return INT_MIN; // при пустом дереве возвращает код ошибки INT_MIN
+    }
+
+    BstNode* currtent = tree->root;
+
+    while (currtent->rightChild != NULL) {
+        currtent = currtent->rightChild;
+    }
+
+    return currtent->data;
+}
+
+static BstNode* getMinNode(BstNode* node)
+{
+    BstNode* current = node;
+    while (current != NULL && current->leftChild != NULL) {
+        current = current->leftChild;
+    }
+    return current;
+}
+
+static BstNode* bstDeleteNode(BstNode* root, int value)
+{
+    if (root == NULL) {
+        return root;
+    }
+
+    if (value < root->data) {
+        root->leftChild = bstDeleteNode(root->leftChild, value);
+    }
+
+    else if (value > root->data) {
+        root->rightChild = bstDeleteNode(root->rightChild, value);
+    }
+
+    else {
+        if (root->leftChild == NULL) {
+            BstNode* temp = root->rightChild;
+            free(root);
+            return temp;
+        } else if (root->rightChild == NULL) {
+            BstNode* temp = root->leftChild;
+            free(root);
+            return temp;
+        }
+
+        BstNode* temp = getMinNode(root->rightChild);
+
+        root->data = temp->data;
+
+        root->rightChild = bstDeleteNode(root->rightChild, temp->data);
+    }
+
+    return root;
+}
+
+void bstDelete(Tree* tree, int value)
+{
+    if (tree == NULL || tree->root == NULL) {
+        return;
+    }
+
+    tree->root = bstDeleteNode(tree->root, value);
 }
