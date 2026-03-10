@@ -15,7 +15,7 @@ typedef struct Tree {
     BstNode* root;
 } Tree;
 
-BstNode* newNode(int data)
+static BstNode* newNode(int data)
 {
     BstNode* node = (BstNode*)malloc(sizeof(BstNode));
     if (node == NULL) {
@@ -40,7 +40,7 @@ Tree* newTree()
     return tree;
 }
 
-int label(BstNode* node)
+static int label(BstNode* node)
 {
     if (node == NULL) {
         return INT_MIN;
@@ -49,7 +49,7 @@ int label(BstNode* node)
     return node->data;
 }
 
-void freeNode(BstNode* node)
+static void freeNode(BstNode* node)
 {
     if (node == NULL) {
         return;

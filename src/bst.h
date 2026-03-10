@@ -2,12 +2,9 @@
 
 #include <stdbool.h>
 
-typedef struct BstNode BstNode;
 typedef struct Tree Tree;
 
-BstNode* newNode(int);
 Tree* newTree();
-void freeNode(BstNode*);
 /**
  * @brief Вставляет значение в дерево, если значение уже есть, ничего не делает.
  */
@@ -21,7 +18,6 @@ bool bstContains(Tree*, int);
  * @brief Освобождает всю память, занятую деревом.
  */
 void bstFree(Tree*);
-int label(BstNode*);
 
 void bstInorder(Tree*);
 void bstPreorder(Tree*);
