@@ -49,4 +49,4 @@ int bstMax(Tree*);
  */
 void bstDelete(Tree* tree, int value);
 
-Tree* bstMerge(Tree* tree1, Tree* tree2);
+Tree* bstMerge(const Tree* tree1, const Tree* tree2);
