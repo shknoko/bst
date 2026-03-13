@@ -306,3 +306,31 @@ void bstDelete(Tree* tree, int value)
 
     tree->root = bstDeleteNode(tree->root, value);
 }
+
+static void bstMergeNode(const BstNode* node, Tree* tree)
+{
+    if (node == NULL) {
+        return;
+    }
+
+    bstMergeNode(node->leftChild, tree);
+    bstInsert(tree, label(node));
+    bstMergeNode(node->rightChild, tree);
+}
+
+Tree* bstMerge(const Tree* tree1, const Tree* tree2)
+{
+    if (tree1 == NULL || tree2 == NULL) {
+        return NULL;
+    }
+
+    Tree* tree3 = newTree();
+    if (tree3 == NULL) {
+        return NULL;
+    }
+
+    bstMergeNode(tree1->root, tree3);
+    bstMergeNode(tree2->root, tree3);
+
+    return tree3;
+}

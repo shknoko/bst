@@ -48,3 +48,5 @@ int bstMax(Tree*);
  * @brief Удаляет узел с заданным значением.
  */
 void bstDelete(Tree* tree, int value);
+
+Tree* bstMerge(Tree* tree1, Tree* tree2);
