@@ -28,7 +28,7 @@ int main(void)
     bstFree(tree);
 }
 
-    int main(void)
-    {
-        return 0;
-    }
+int main(void)
+{
+    return 0;
+}
