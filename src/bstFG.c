@@ -83,5 +83,3 @@ int bstKthMin(Tree* tree, int k)
         return result->data;
     return -1;
 }
-
-
