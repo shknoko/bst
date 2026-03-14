@@ -26,6 +26,7 @@ int main(void)
     printf("Есть 50? %s\n", bstContains(tree, 50) ? "Да" : "Нет");
 
     bstFree(tree);
+}
 
     int main(void)
     {
