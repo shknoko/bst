@@ -8,7 +8,7 @@ Tree* newTree();
 /**
  * @brief Вставляет значение в дерево, если значение уже есть, ничего не делает.
  */
-void bstInsert(Tree*, int);
+bool bstInsert(Tree*, int);
 /**
  * @brief Возвращает true, если значение есть в дереве.
  * @return bool
