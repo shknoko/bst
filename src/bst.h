@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 typedef struct Tree Tree;
+typedef struct Iterator Iterator;
 
 Tree* newTree();
 /**
@@ -48,3 +49,16 @@ int bstMax(Tree*);
  * @brief Удаляет узел с заданным значением.
  */
 void bstDelete(Tree* tree, int value);
+
+Iterator* iteratorInit(Tree*);
+bool iteratorHasNext(Iterator*);
+/**
+ * @note проверять наличие следующего через iteratorHasNext
+ * @param next следующий элемент итератора
+ * @retval 1 при невозможности записать выходное значение
+ * @retval 2 при итерации на пустом итераторе
+ * @retval 3 при неудачном заполнении стека итератора
+ * @retval 4 при неудачном восстановлении состояния стека итератора
+ */
+int iteratorNext(Iterator*, int*);
+void iteratorFree(Iterator*);
