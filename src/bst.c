@@ -40,7 +40,7 @@ Tree* newTree()
     return tree;
 }
 
-static int label(BstNode* node)
+static int label(const BstNode* node)
 {
     if (node == NULL) {
         return INT_MIN;
