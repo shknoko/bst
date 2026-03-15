@@ -317,7 +317,7 @@ static bool bstMergeNode(const BstNode* node, Tree* tree)
 
 Tree* bstMerge(const Tree* tree1, const Tree* tree2)
 {
-    if (tree1 == NULL || tree2 == NULL) {
+    if (tree1 == NULL && tree2 == NULL) {
         return NULL;
     }
 
@@ -326,9 +326,18 @@ Tree* bstMerge(const Tree* tree1, const Tree* tree2)
         return NULL;
     }
 
-    if (!bstMergeNode(tree1->root, tree3) || !bstMergeNode(tree2->root, tree3)) {
-        bstFree(tree3);
-        return NULL;
+    if (tree1 != NULL) {
+        if (!bstMergeNode(tree1->root, tree3)) {
+            bstFree(tree3);
+            return NULL;
+        }
+    }
+
+    if (tree2 != NULL) {
+        if (!bstMergeNode(tree2->root, tree3)) {
+            bstFree(tree3);
+            return NULL;
+        }
     }
 
     return tree3;
