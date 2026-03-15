@@ -6,6 +6,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 add_library(bst src/bst.c)
+add_library(stack src/stack.c)
+
+target_link_libraries(bst PRIVATE stack)
 
 add_executable(main src/main.c)
 target_link_libraries(main PRIVATE bst)
