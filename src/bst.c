@@ -1,4 +1,5 @@
 #include "bst.h"
+#include "stack.h"
 
 #include <limits.h>
 #include <stdbool.h>
@@ -14,6 +15,10 @@ typedef struct BstNode {
 typedef struct Tree {
     BstNode* root;
 } Tree;
+
+typedef struct Iterator {
+    Stack* stack;
+} Iterator;
 
 static BstNode* newNode(int data)
 {
@@ -306,4 +311,81 @@ void bstDelete(Tree* tree, int value)
     }
 
     tree->root = bstDeleteNode(tree->root, value);
+}
+
+static bool fillStack(Iterator* it, BstNode* node)
+{
+    unsigned pushed = 0;
+    while (node != NULL) {
+        if (!push(it->stack, node)) {
+            for (unsigned i = 0; i < pushed; i++) {
+                pop(it->stack);
+            }
+
+            return false;
+        }
+        pushed++;
+        node = node->leftChild;
+    }
+    return true;
+}
+
+Iterator* iteratorInit(Tree* tree)
+{
+    Iterator* it = malloc(sizeof(Iterator));
+    if (it == NULL || tree == NULL) {
+        free(it);
+        return NULL;
+    }
+
+    it->stack = newStack();
+    if (it->stack == NULL) {
+        free(it);
+        return NULL;
+    }
+
+    if (!fillStack(it, tree->root)) {
+        iteratorFree(it);
+        return NULL;
+    }
+
+    return it;
+}
+
+bool iteratorHasNext(Iterator* it)
+{
+    return it != NULL && it->stack != NULL && !isEmpty(it->stack);
+}
+
+int iteratorNext(Iterator* it, int* next)
+{
+    if (next == NULL) {
+        return 1;
+    }
+
+    if (!iteratorHasNext(it)) {
+        return 2;
+    }
+
+    BstNode* node = pop(it->stack);
+    if (!fillStack(it, node->rightChild)) {
+        if (!push(it->stack, node)) {
+            return 4;
+        }
+
+        return 3;
+    }
+
+    *next = node->data;
+    return 0;
+}
+
+void iteratorFree(Iterator* it)
+{
+    if (it == NULL) {
+        return;
+    }
+
+    freeStack(it->stack);
+    free(it);
 }
