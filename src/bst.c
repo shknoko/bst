@@ -77,7 +77,7 @@ bool bstContains(Tree* tree, int value)
     return false;
 }
 
-bool bstInsert(Tree* tree, int value)
+void bstInsert(Tree* tree, int value)
 {
     if (tree == NULL) {
         return false;
