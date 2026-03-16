@@ -7,8 +7,9 @@ typedef struct Tree Tree;
 Tree* newTree();
 /**
  * @brief Вставляет значение в дерево, если значение уже есть, ничего не делает.
+ * @return true если значение добавлено, false если не добавлено
  */
-void bstInsert(Tree*, int);
+bool bstInsert(Tree*, int);
 /**
  * @brief Возвращает true, если значение есть в дереве.
  * @return bool

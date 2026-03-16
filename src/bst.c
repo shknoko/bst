@@ -77,7 +77,7 @@ bool bstContains(Tree* tree, int value)
     return false;
 }
 
-void bstInsert(Tree* tree, int value)
+bool bstInsert(Tree* tree, int value)
 {
     if (tree == NULL) {
         return false;
@@ -85,14 +85,14 @@ void bstInsert(Tree* tree, int value)
 
     if (tree->root == NULL) {
         tree->root = newNode(value);
-        return;
+        return true;
     }
 
     BstNode* current = tree->root;
 
     while (true) {
         if (value == current->data) {
-            return;
+            return false;
         }
 
         if (value < current->data) {
