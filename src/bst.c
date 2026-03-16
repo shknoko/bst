@@ -45,7 +45,7 @@ Tree* newTree()
     return tree;
 }
 
-static int label(BstNode* node)
+static int label(const BstNode* node)
 {
     if (node == NULL) {
         return INT_MIN;
@@ -82,34 +82,35 @@ bool bstContains(Tree* tree, int value)
     return false;
 }
 
-void bstInsert(Tree* tree, int value)
+bool bstInsert(Tree* tree, int value)
 {
+    if (tree == NULL) {
+        return false;
+    }
 
     if (tree->root == NULL) {
         tree->root = newNode(value);
-        return;
+        return true;
     }
 
     BstNode* current = tree->root;
 
     while (true) {
         if (value == current->data) {
-            return;
+            return false;
         }
 
         if (value < current->data) {
             if (current->leftChild == NULL) {
                 current->leftChild = newNode(value);
-                return;
+                return current->leftChild != NULL;
             }
 
             current = current->leftChild;
-        }
-
-        else {
+        } else {
             if (current->rightChild == NULL) {
                 current->rightChild = newNode(value);
-                return;
+                return current->rightChild != NULL;
             }
 
             current = current->rightChild;
