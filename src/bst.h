@@ -6,9 +6,9 @@ typedef struct Tree Tree;
 
 Tree* newTree();
 /**
- * @brief Вставляет значение в дерево, если значение уже есть, ничего не делает.
+ * @brief Вставляет значение в дерево, если значение уже есть, возвращает true.
  */
-void bstInsert(Tree*, int);
+bool bstInsert(Tree*, int);
 /**
  * @brief Возвращает true, если значение есть в дереве.
  * @return bool
@@ -48,3 +48,5 @@ int bstMax(Tree*);
  * @brief Удаляет узел с заданным значением.
  */
 void bstDelete(Tree* tree, int value);
+
+Tree* bstMerge(const Tree* tree1, const Tree* tree2);

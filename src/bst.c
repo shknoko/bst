@@ -40,7 +40,7 @@ Tree* newTree()
     return tree;
 }
 
-static int label(BstNode* node)
+static int label(const BstNode* node)
 {
     if (node == NULL) {
         return INT_MIN;
@@ -77,34 +77,33 @@ bool bstContains(Tree* tree, int value)
     return false;
 }
 
-void bstInsert(Tree* tree, int value)
+bool bstInsert(Tree* tree, int value)
 {
+    if (tree == NULL) {
+        return false;
+    }
 
     if (tree->root == NULL) {
         tree->root = newNode(value);
-        return;
+        return tree->root != NULL;
     }
 
     BstNode* current = tree->root;
 
     while (true) {
         if (value == current->data) {
-            return;
-        }
-
-        if (value < current->data) {
+            return true;
+        } else if (value < current->data) {
             if (current->leftChild == NULL) {
                 current->leftChild = newNode(value);
-                return;
+                return current->leftChild != NULL;
             }
 
             current = current->leftChild;
-        }
-
-        else {
+        } else {
             if (current->rightChild == NULL) {
                 current->rightChild = newNode(value);
-                return;
+                return current->rightChild != NULL;
             }
 
             current = current->rightChild;
@@ -305,4 +304,41 @@ void bstDelete(Tree* tree, int value)
     }
 
     tree->root = bstDeleteNode(tree->root, value);
+}
+
+static bool bstMergeNode(const BstNode* node, Tree* tree)
+{
+    if (node == NULL) {
+        return true;
+    }
+
+    return bstMergeNode(node->leftChild, tree) && bstInsert(tree, label(node)) && bstMergeNode(node->rightChild, tree);
+}
+
+Tree* bstMerge(const Tree* tree1, const Tree* tree2)
+{
+    if (tree1 == NULL && tree2 == NULL) {
+        return NULL;
+    }
+
+    Tree* tree3 = newTree();
+    if (tree3 == NULL) {
+        return NULL;
+    }
+
+    if (tree1 != NULL) {
+        if (!bstMergeNode(tree1->root, tree3)) {
+            bstFree(tree3);
+            return NULL;
+        }
+    }
+
+    if (tree2 != NULL) {
+        if (!bstMergeNode(tree2->root, tree3)) {
+            bstFree(tree3);
+            return NULL;
+        }
+    }
+
+    return tree3;
 }
